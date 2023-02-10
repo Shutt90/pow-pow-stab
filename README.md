@@ -1,4 +1,4 @@
-# Phaser TypeScript Electron starter template
+# Phaser Game - Pow Pow Stab
 
 ![Phaser Typescript Electron](https://i.ibb.co/gdVsT4J/phaser-typescript-electron-template.png)
 
