@@ -1,6 +1,9 @@
 import Phaser from 'phaser';
+import Hero from '../sprites/Hero';
 
-export default class Opening extends Phaser.Scene {
+export default class OpeningScene extends Phaser.Scene {
+  hero = new Hero('champ');
+
   constructor() {
     super('GameScene');
   }
@@ -10,15 +13,15 @@ export default class Opening extends Phaser.Scene {
   }
 
   create() {
-    const logo = this.add.image(400, 70, 'logo');
+    this.input.keyboard.addKeys('W, A, S, D, SHIFT, SPACE')
 
-    this.tweens.add({
-      targets: logo,
-      y: 350,
-      duration: 1500,
-      ease: 'Sine.inOut',
-      yoyo: true,
-      repeat: -1
-    });
+  }
+
+  update() {
+
+  }
+
+  controls() {
+
   }
 }

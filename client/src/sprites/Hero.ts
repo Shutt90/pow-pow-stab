@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import OpeningScene from '../scenes/Game'
 
 type heroStats {
     level: stat
@@ -11,7 +12,7 @@ type heroStats {
 
 type stat = number | null
 
-export default class Hero {
+export default class Hero extends Phaser.GameObjects.Sprite {
     name: string = 'Hero'
     level: stat = 1
     attack: stat = 1
@@ -20,9 +21,9 @@ export default class Hero {
     mana: stat = 10
     speed: stat = 1
 
-
     constructor(heroName: string) {
-        this.name = heroName
+        super(OpeningScene, 0, 0, 'none', 0);
+        this.name = heroName;
     }
 
     getStats(): heroStats {
