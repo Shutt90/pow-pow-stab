@@ -1,8 +1,6 @@
 import Phaser from 'phaser'
 import { Stats } from '../scenes/Game';
 
-type stat = number | null
-
 export default class PlayableSprite extends Phaser.GameObjects.Sprite {
     attributes: Stats = {
         level: 1,
@@ -23,7 +21,7 @@ export default class PlayableSprite extends Phaser.GameObjects.Sprite {
         this.attributes.level++
     }
 
-    increaseStats(stats: heroStats) {
+    increaseStats(stats: Stats) {
     }
 }
 

@@ -1,5 +1,5 @@
 import Phaser, { Scene } from 'phaser';
-import { Stats } from '../scenes/Game';
+import { Stats, Stat } from '../scenes/Game';
 
 const enemyTypes: Array<enemy> = [
     'flying',
@@ -9,7 +9,7 @@ const enemyTypes: Array<enemy> = [
 
 type enemy = string
 
-export default class PlayableSprite extends Phaser.GameObjects.Sprite {
+export default class EnemySprite extends Phaser.GameObjects.Sprite {
     attributes: Stats = {
         level: 1,
         hp: 25,
@@ -24,15 +24,37 @@ export default class PlayableSprite extends Phaser.GameObjects.Sprite {
     constructor(scene: Scene, x: number, y: number, texture: string, playerLevel: number){
         super(scene, x, y, texture)
         this.attributes.level = Phaser.Math.Between(playerLevel--,  playerLevel++)
-        this.enemyType = this.typeGenerate(Phaser.Math.Between(0, enemyTypes.length--))
+        this.enemyType = enemyTypes[Phaser.Math.Between(0, enemyTypes.length--)]
+        this.statsForEnemyType()
     }
 
-    typeGenerate(type: number): string {
-        return generateStats(this.enemyType)
+    statsForEnemyType(): void {
+        console.log(this.enemyType)
+
+        //TODO: refactor later
+        if (this.enemyType === enemyTypes[0]) {
+            //flying enemy
+            this.generateStats(0.35, 0.45)
+        }
+
+        if (this.enemyType === enemyTypes[1]) {
+            //grounded enemy
+            this.generateStats(0.45, 0.48)
+
+        }
+
+        if (this.enemyType === enemyTypes[2]) {
+            //swimming enemy
+            this.generateStats(0.35, 0.43)
+
+        }
     }
 
-    generateStats(enemyType: enemy): enemyStats {
-        return
+    generateStats(min: number, max: number) {
+        for(const attr of Object.values(this.attributes)) {
+            if(attr as Stat !== null) {
+                this.attributes[attr] = this.attributes.level === null ? '' : this.attributes.level * Phaser.Math.Between(min, max)
+            }
+        }
     }
-
 }
