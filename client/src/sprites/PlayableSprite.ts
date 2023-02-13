@@ -60,9 +60,6 @@ export default class PlayableSprite extends Phaser.GameObjects.Sprite {
     }
 
     increaseStats(stats: heroStats) {
-        for(const property of Object.values(stats)) {
-            console.log(property)
-        }
     }
 }
 
