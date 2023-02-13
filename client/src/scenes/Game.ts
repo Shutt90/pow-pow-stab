@@ -1,18 +1,17 @@
 import Phaser, { Textures } from 'phaser';
-import Hero from '../sprites/Hero';
 import idle from '../sprites/assets/Idle.png'
+import PlayableSprite from '../sprites/PlayableSprite';
 
 
-export default class OpeningScene extends Phaser.Scene {
+export default class Game extends Phaser.Scene {
   heroTexture: Textures.Texture
-  hero: Hero
+  hero: PlayableSprite
 
   constructor() {
     super('GameScene');
     console.log(this)
     this.heroTexture = new Textures.Texture(this.textures, 'hero', idle, 64, 64)
-    this.hero = new Hero(this.heroTexture, this);
-    this.load.
+    this.hero = new PlayableSprite(this, 0 , 0, this.textures, 0);
   }
 
   preload() {

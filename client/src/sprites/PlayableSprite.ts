@@ -1,4 +1,4 @@
-import Phaser, { Scene } from 'phaser'
+import Phaser from 'phaser'
 
 type heroStats = {
     level: stat
@@ -11,17 +11,13 @@ type heroStats = {
 
 type stat = number | null
 
-export default class Hero extends Phaser.GameObjects.Sprite {
+export default class PlayableSprite extends Phaser.GameObjects.Sprite {
     level: stat = 1
     attack: stat = 1
     defence: stat = 1
     hp: stat = 25
     mana: stat = 10
     speed: stat = 1
-
-    constructor(texture: Phaser.Textures.Texture, scene: Scene) {
-        super(scene, 0, 0, texture, 0);
-    }
 
     getStats(): heroStats {
         return {
