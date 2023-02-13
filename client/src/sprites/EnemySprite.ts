@@ -24,7 +24,7 @@ export default class EnemySprite extends Phaser.GameObjects.Sprite {
     constructor(scene: Scene, x: number, y: number, texture: string, playerLevel: number){
         super(scene, x, y, texture)
         this.attributes.level = Phaser.Math.Between(playerLevel--,  playerLevel++)
-        this.enemyType = enemyTypes[Phaser.Math.Between(0, enemyTypes.length--)]
+        this.enemyType = enemyTypes[Phaser.Math.Between(0, enemyTypes.length-1)]
         this.statsForEnemyType()
     }
 
