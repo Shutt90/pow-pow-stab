@@ -1,7 +1,6 @@
-import Phaser from 'phaser'
-import OpeningScene from '../scenes/Game'
+import Phaser, { Scene } from 'phaser'
 
-type heroStats {
+type heroStats = {
     level: stat
     attack: stat
     defense: stat
@@ -13,7 +12,6 @@ type heroStats {
 type stat = number | null
 
 export default class Hero extends Phaser.GameObjects.Sprite {
-    name: string = 'Hero'
     level: stat = 1
     attack: stat = 1
     defence: stat = 1
@@ -21,9 +19,8 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     mana: stat = 10
     speed: stat = 1
 
-    constructor(heroName: string) {
-        super(OpeningScene, 0, 0, 'none', 0);
-        this.name = heroName;
+    constructor(texture: Phaser.Textures.Texture, scene: Scene) {
+        super(scene, 0, 0, texture, 0);
     }
 
     getStats(): heroStats {
@@ -37,7 +34,8 @@ export default class Hero extends Phaser.GameObjects.Sprite {
         }
     }
 
-    setName(name: string): void {
+    //TODO: change any type
+    setName(name: string): any {
         this.name = name
     }
 
@@ -52,12 +50,23 @@ export default class Hero extends Phaser.GameObjects.Sprite {
             case 'hp':
                 return this.hp
             case 'mana':
-                return this.mana
+                return this.mana 
             case 'speed':
                 return this.speed
             default: return null
         }
             
+    }
+
+    levelUp() {
+        // @ts-ignore
+        this.level++;
+    }
+
+    increaseStats(stats: heroStats) {
+        for(const property of Object.values(stats)) {
+            console.log(property)
+        }
     }
 }
 
