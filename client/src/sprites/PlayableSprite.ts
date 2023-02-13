@@ -1,33 +1,16 @@
 import Phaser from 'phaser'
-
-type heroStats = {
-    level: stat
-    attack: stat
-    defense: stat
-    hp: stat
-    mana: stat
-    speed: stat
-}
+import { Stats } from '../scenes/Game';
 
 type stat = number | null
 
 export default class PlayableSprite extends Phaser.GameObjects.Sprite {
-    level: stat = 1
-    attack: stat = 1
-    defence: stat = 1
-    hp: stat = 25
-    mana: stat = 10
-    speed: stat = 1
-
-    getStats(): heroStats {
-        return {
-            level: this.getAttribute('level'),
-            attack: this.getAttribute('attack'),
-            defense: this.getAttribute('defence'),
-            hp: this.getAttribute('hp'),
-            mana: this.getAttribute('mana'),
-            speed: this.getAttribute('speed'),
-        }
+    attributes: Stats = {
+        level: 1,
+        hp: 25,
+        mana: 10,
+        attack: 1,
+        defense: 1,
+        speed: 1
     }
 
     //TODO: change any type
@@ -35,28 +18,9 @@ export default class PlayableSprite extends Phaser.GameObjects.Sprite {
         this.name = name
     }
 
-    getAttribute(attr: string): stat | null {
-        switch(attr) {
-            case 'level':
-              return this.level
-            case 'attack':
-              return this.attack
-            case 'defence':
-                return this.defence
-            case 'hp':
-                return this.hp
-            case 'mana':
-                return this.mana 
-            case 'speed':
-                return this.speed
-            default: return null
-        }
-            
-    }
-
     levelUp() {
         // @ts-ignore
-        this.level++;
+        this.attributes.level++
     }
 
     increaseStats(stats: heroStats) {
