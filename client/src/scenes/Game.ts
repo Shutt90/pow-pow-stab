@@ -6,7 +6,6 @@ import tilesPNG from '../../assets/TX-Tileset-Grass.png'
 import tilesJSON from '../../assets/arenamap.json'
 
 export type Stats = {
-  level: Stat
   hp: Stat
   mana: Stat
   attack: Stat
@@ -28,17 +27,17 @@ export default class Game extends Phaser.Scene {
     this.load.spritesheet('hero', hero, {frameWidth: 32, frameHeight: 32})
     this.load.image('base_tiles', tilesPNG)
     this.load.tilemapTiledJSON('tilemap', tilesJSON)
-
   }
 
   create() {
     this.hero = new PlayableSprite(this, 0 , 0, 'hero');
-    this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.attributes.level);
+    this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.level);
     this.add.image(0, 0, 'base_tiles')
     const map = this.make.tilemap({key: 'arena'})
     const tileset = map.addTilesetImage('arena', 'base_tiles')
     map.createLayer('ground', tileset)
     map.createLayer('walls', tileset)
+    this.hero.increaseStats()
 
   }
 
