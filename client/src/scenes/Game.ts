@@ -42,6 +42,27 @@ export default class Game extends Phaser.Scene {
   }
 
   update() {
+    this.controls()
+
+  }
+
+  controls() {
+    const keys = this.input.keyboard.addKeys('A, W, S, D, left, right, up, down')
+    if (this.input.keyboard.checkDown(keys.up) || this.input.keyboard.checkDown(keys.W)) {
+
+    }
+
+    if (this.input.keyboard.checkDown(keys.down) || this.input.keyboard.checkDown(keys.S)) {
+
+    }
+
+    if (this.input.keyboard.checkDown(keys.right) || this.input.keyboard.checkDown(keys.D)) {
+
+    }
+
+    if (this.input.keyboard.checkDown(keys.left) || this.input.keyboard.checkDown(keys.A)) {
+
+    }
 
   }
 }
