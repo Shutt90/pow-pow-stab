@@ -32,7 +32,7 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
-    this.hero = new PlayableSprite(this, 0 , 0, 'hero');
+    this.hero = new PlayableSprite(this, 100 , 100, 'hero');
     this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.level);
     this.add.image(0, 0, 'base_tiles')
     const map = this.make.tilemap({key: 'arena'})
@@ -40,33 +40,34 @@ export default class Game extends Phaser.Scene {
     map.createLayer('ground', tileset)
     map.createLayer('walls', tileset)
     this.hero.increaseStats()
-    this.physics.add.sprite(100,100,'hero').setScale(1)
-
-
 
   }
 
   update() {
-    this.controls()
-
+    if (this.hero) {
+      this.giveControls(this.hero)
+    }
   }
 
-  controls() {
+  giveControls(sprite: PlayableSprite) {
     const keys = this.input.keyboard.addKeys('A, W, S, D, left, right, up, down')
-    if (this.input.keyboard.checkDown(keys.up) || this.input.keyboard.checkDown(keys.W)) {
+    console.log(sprite, sprite.body)
 
+    if (this.input.keyboard.checkDown(keys.up) || this.input.keyboard.checkDown(keys.W)) {
+      sprite.body.setVelocityY(sprite.attributes.speed * 0.75)
     }
 
     if (this.input.keyboard.checkDown(keys.down) || this.input.keyboard.checkDown(keys.S)) {
-
+      sprite.body.setVelocityY(sprite.attributes.speed * -0.75)
     }
 
     if (this.input.keyboard.checkDown(keys.right) || this.input.keyboard.checkDown(keys.D)) {
-
+      console.log(sprite)
+      sprite.body.setVelocityX(sprite.attributes.speed * 0.75)
     }
 
     if (this.input.keyboard.checkDown(keys.left) || this.input.keyboard.checkDown(keys.A)) {
-
+      sprite.body.setVelocityX(sprite.attributes.speed * -0.75)
     }
 
   }
