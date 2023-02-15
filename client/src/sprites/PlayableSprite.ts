@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import { Stats, Stat } from '../scenes/Game';
 
-export default class PlayableSprite extends Phaser.GameObjects.Sprite {
+export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
     attributes: Stats = {
         hp: 25,
         mana: 10,
