@@ -32,7 +32,7 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
-    this.hero = new PlayableSprite(this, 0 , 0, 'hero', 0);
+    this.hero = new PlayableSprite(this, 0 , 0, 'hero');
     this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.level);
     this.add.image(0, 0, 'base_tiles')
     const map = this.make.tilemap({key: 'arena'})
@@ -40,6 +40,9 @@ export default class Game extends Phaser.Scene {
     map.createLayer('ground', tileset)
     map.createLayer('walls', tileset)
     this.hero.increaseStats()
+    this.physics.add.sprite(100,100,'hero').setScale(1)
+
+
 
   }
 

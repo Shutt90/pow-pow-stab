@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-
 export default {
   type: Phaser.AUTO,
   parent: 'game',
@@ -10,4 +9,10 @@ export default {
     width: window.innerWidth,
     height: window.innerHeight,
   },
+  physics: {
+    default: 'arcade',
+    arcade: {
+        debug: true
+    }
+  }
 };
