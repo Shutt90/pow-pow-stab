@@ -1,6 +1,8 @@
 import Phaser, { Tilemaps } from 'phaser';
 import PlayableSprite from '../sprites/PlayableSprite';
-import hero from '../sprites/assets/Idle.png'
+import heroJSON from '../sprites/assets/totem-idle.json'
+import heroPNG from '../sprites/assets/totem-idle.png'
+
 import EnemySprite from '../sprites/EnemySprite';
 import tilesPNG from '../../assets/TX-Tileset-Grass.png'
 import tilesJSON from '../../assets/arenamap.json'
@@ -24,13 +26,13 @@ export default class Game extends Phaser.Scene {
   }
 
   preload() {
-    this.load.spritesheet('hero', hero, {frameWidth: 32, frameHeight: 32})
+    this.load.aseprite('hero', heroPNG, heroJSON)
     this.load.image('base_tiles', tilesPNG)
     this.load.tilemapTiledJSON('tilemap', tilesJSON)
   }
 
   create() {
-    this.hero = new PlayableSprite(this, 0 , 0, 'hero');
+    this.hero = new PlayableSprite(this, 0 , 0, 'hero', 0);
     this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.level);
     this.add.image(0, 0, 'base_tiles')
     const map = this.make.tilemap({key: 'arena'})
