@@ -20,6 +20,7 @@ export type Stat = number | null
 export default class Game extends Phaser.Scene {
   hero: PlayableSprite | undefined;
   enemy: EnemySprite | undefined;
+  keys: any
 
   constructor() {
     super('Game');
@@ -32,40 +33,49 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
-    this.hero = new PlayableSprite(this, 100 , 100, 'hero');
-    this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.level);
     this.add.image(0, 0, 'base_tiles')
     const map = this.make.tilemap({key: 'arena'})
     const tileset = map.addTilesetImage('arena', 'base_tiles')
     map.createLayer('ground', tileset)
     map.createLayer('walls', tileset)
+    this.hero = new PlayableSprite(this, 100 , 100, 'hero');
+    this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.level);
 
+    this.keys = this.input.keyboard.addKeys('A, W, S, D, left, right, up, down')
   }
 
   update() {
     if (this.hero) {
-      this.giveControls(this.hero)
+      this.giveControlsX(this.hero)
+      this.giveControlsY(this.hero)
+
     }
   }
 
-  giveControls(sprite: PlayableSprite) {
-    const keys = this.input.keyboard.addKeys('A, W, S, D, left, right, up, down')
-
-    if (this.input.keyboard.checkDown(keys.up) || this.input.keyboard.checkDown(keys.W)) {
-      sprite.body.setVelocityY(sprite.attributes.speed * 0.75)
+  giveControlsX(sprite: PlayableSprite) {
+    if (this.input.keyboard.checkDown(this.keys.right) || this.input.keyboard.checkDown(this.keys.D)) {
+      sprite.body.setVelocityX(sprite.attributes.speed * 75)
+      return
     }
 
-    if (this.input.keyboard.checkDown(keys.down) || this.input.keyboard.checkDown(keys.S)) {
-      sprite.body.setVelocityY(sprite.attributes.speed * -0.75)
+    if (this.input.keyboard.checkDown(this.keys.left) || this.input.keyboard.checkDown(this.keys.A)) {
+      sprite.body.setVelocityX(sprite.attributes.speed * -75)
+      return
     }
 
-    if (this.input.keyboard.checkDown(keys.right) || this.input.keyboard.checkDown(keys.D)) {
-      sprite.body.setVelocityX(sprite.attributes.speed * 0.75)
+    sprite.body.setVelocityX(0)
+  }
+  giveControlsY(sprite: PlayableSprite) {
+    if (this.input.keyboard.checkDown(this.keys.up) || this.input.keyboard.checkDown(this.keys.W)) {
+      sprite.body.setVelocityY(sprite.attributes.speed * -75)
+      return
     }
 
-    if (this.input.keyboard.checkDown(keys.left) || this.input.keyboard.checkDown(keys.A)) {
-      sprite.body.setVelocityX(sprite.attributes.speed * -0.75)
+    if (this.input.keyboard.checkDown(this.keys.down) || this.input.keyboard.checkDown(this.keys.S)) {
+      sprite.body.setVelocityY(sprite.attributes.speed * 75)
+      return
     }
 
+    sprite.body.setVelocityY(0)
   }
 }
