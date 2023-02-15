@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser, { Scene, Textures } from 'phaser'
 import { Stats, Stat } from '../scenes/Game';
 
 export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
@@ -11,6 +11,12 @@ export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
     }
     level: Stat = 1
     xp: Stat = 0
+
+    constructor(scene: Scene, x: number, y: number, texture: string | Textures.Texture, frame?: string) {
+        super(scene, x, y, texture, frame)
+        this.scene.add.existing(this);
+        this.scene.physics.add.existing(this);
+    }
 
     //TODO: change any type
     setName(name: string): any {

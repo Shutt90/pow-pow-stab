@@ -39,7 +39,6 @@ export default class Game extends Phaser.Scene {
     const tileset = map.addTilesetImage('arena', 'base_tiles')
     map.createLayer('ground', tileset)
     map.createLayer('walls', tileset)
-    this.hero.increaseStats()
 
   }
 
@@ -51,7 +50,6 @@ export default class Game extends Phaser.Scene {
 
   giveControls(sprite: PlayableSprite) {
     const keys = this.input.keyboard.addKeys('A, W, S, D, left, right, up, down')
-    console.log(sprite, sprite.body)
 
     if (this.input.keyboard.checkDown(keys.up) || this.input.keyboard.checkDown(keys.W)) {
       sprite.body.setVelocityY(sprite.attributes.speed * 0.75)
@@ -62,7 +60,6 @@ export default class Game extends Phaser.Scene {
     }
 
     if (this.input.keyboard.checkDown(keys.right) || this.input.keyboard.checkDown(keys.D)) {
-      console.log(sprite)
       sprite.body.setVelocityX(sprite.attributes.speed * 0.75)
     }
 
