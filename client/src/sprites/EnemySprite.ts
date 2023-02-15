@@ -11,19 +11,18 @@ type enemy = string
 
 export default class EnemySprite extends Phaser.GameObjects.Sprite {
     attributes: Stats = {
-        level: 1,
         hp: 25,
         mana: 10,
         attack: 1,
         defense: 1,
         speed: 1
     }
+    level: Stat = 1
 
     private enemyType: enemy
 
     constructor(scene: Scene, x: number, y: number, texture: string, playerLevel: number){
         super(scene, x, y, texture)
-        this.attributes.level = Phaser.Math.Between(playerLevel--,  playerLevel++)
         this.enemyType = enemyTypes[Phaser.Math.Between(0, enemyTypes.length-1)]
         this.statsForEnemyType()
     }
@@ -53,7 +52,7 @@ export default class EnemySprite extends Phaser.GameObjects.Sprite {
     generateStats(min: number, max: number) {
         for(const attr of Object.values(this.attributes)) {
             if(attr as Stat !== null) {
-                this.attributes[attr] = this.attributes.level === null ? '' : this.attributes.level * Phaser.Math.Between(min, max)
+                this.attributes[attr] = this.level === null ? '' : this.level * Phaser.Math.Between(min, max)
             }
         }
     }

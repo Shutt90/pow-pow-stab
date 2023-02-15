@@ -42,7 +42,6 @@ export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
                 }
 
                 this.attributes[attr] = this.attributes[attr] + 1
-                continue
             }
         }
     }

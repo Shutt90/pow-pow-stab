@@ -15,7 +15,7 @@ export type Stats = {
   speed: Stat
 }
 
-export type Stat = number | null
+export type Stat = number
 
 export default class Game extends Phaser.Scene {
   hero: PlayableSprite | undefined;
