@@ -1,5 +1,5 @@
 import Phaser, { Scene, Textures } from 'phaser'
-import { Stats, Stat } from '../scenes/Game';
+import { Stats, Stat } from './scenes/Game';
 
 export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
     attributes: Stats = {
@@ -14,17 +14,17 @@ export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
 
     constructor(scene: Scene, x: number, y: number, texture: string | Textures.Texture, frame?: string) {
         super(scene, x, y, texture, frame)
-        this.scene.add.existing(this);
-        this.scene.physics.add.existing(this);
+        this.scene.add.existing(this)
+        this.scene.physics.add.existing(this)
+        this.scene.physics.world.setBoundsCollision()
     }
 
     //TODO: change any type
-    setName(name: string): any {
+    setName(name: string): void {
         this.name = name
     }
 
     levelUp() {
-        // @ts-ignore
         this.level++
         this.increaseStats()
     }
@@ -44,6 +44,10 @@ export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
                 this.attributes[attr] = this.attributes[attr] + 1
             }
         }
+    }
+
+    addTextbox(text: string): void {
+
     }
 }
 
