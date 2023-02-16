@@ -23,5 +23,8 @@
     "vite": "^2.9.8"
   },
   "nodeversion": "14.18.1",
-  "npmversion": "8.13.2"
+  "npmversion": "8.13.2",
+  "dependencies": {
+    "phaser3-rex-plugins": "^1.1.81"
+  }
 }
