@@ -1,4 +1,4 @@
-import Phaser, { Tilemaps } from 'phaser';
+import Phaser from 'phaser';
 import PlayableSprite from '../sprites/PlayableSprite';
 import heroJSON from '../sprites/assets/totem-idle.json'
 import heroPNG from '../sprites/assets/totem-idle.png'
@@ -91,12 +91,5 @@ export default class Game extends Phaser.Scene {
 
   createTextbox(x: number, y: number, text: string) {
     const txt = new GameText(this, x, y, text, {})
-    const textBox = new TextBox(this, {
-      x: this.canvas.width,
-      y: this.canvas.height,
-      text: txt
-    });
-    scene.add.existing(textBox);
-
   }
 }
