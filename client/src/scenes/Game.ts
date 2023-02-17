@@ -58,35 +58,49 @@ export default class Game extends Phaser.Scene {
     if (this.hero) {
       this.giveControlsX(this.hero)
       this.giveControlsY(this.hero)
-
     }
   }
 
   giveControlsX(sprite: PlayableSprite) {
     if (this.input.keyboard.checkDown(this.keys.right) || this.input.keyboard.checkDown(this.keys.D)) {
-      sprite.body.setVelocityX(sprite.attributes.speed * 75)
-      return
+      if (sprite.body.velocity.x < sprite.attributes.speed * 250) {
+        return sprite.body.setAccelerationX(sprite.attributes.speed * 175)
+      } else {
+        return sprite.body.setVelocityX(sprite.attributes.speed * 250)
+      }
     }
 
     if (this.input.keyboard.checkDown(this.keys.left) || this.input.keyboard.checkDown(this.keys.A)) {
-      sprite.body.setVelocityX(sprite.attributes.speed * -75)
-      return
+      if (sprite.body.velocity.x > sprite.attributes.speed * -250) {
+        return sprite.body.setAccelerationX(sprite.attributes.speed * -175)
+      } else {
+        return sprite.body.setVelocityX(sprite.attributes.speed * -250)
+      }
     }
 
     sprite.body.setVelocityX(0)
+    sprite.body.setAccelerationX(0)
   }
+
   giveControlsY(sprite: PlayableSprite) {
     if (this.input.keyboard.checkDown(this.keys.up) || this.input.keyboard.checkDown(this.keys.W)) {
-      sprite.body.setVelocityY(sprite.attributes.speed * -75)
-      return
+      if (sprite.body.velocity.y > sprite.attributes.speed * -250) {
+        return sprite.body.setAccelerationY(sprite.attributes.speed * -175)
+      } else {
+        return sprite.body.setVelocityY(sprite.attributes.speed * -250)
+      }
     }
 
     if (this.input.keyboard.checkDown(this.keys.down) || this.input.keyboard.checkDown(this.keys.S)) {
-      sprite.body.setVelocityY(sprite.attributes.speed * 75)
-      return
+      if (sprite.body.velocity.y < sprite.attributes.speed * 250) {
+        return sprite.body.setAccelerationY(sprite.attributes.speed * 175)
+      } else {
+        return sprite.body.setVelocityY(sprite.attributes.speed * 250)
+      }
     }
 
     sprite.body.setVelocityY(0)
+    sprite.body.setAccelerationY(0)
   }
 
   createTextbox(x: number, y: number, text: string) {
