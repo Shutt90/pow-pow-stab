@@ -36,7 +36,6 @@ export default class Game extends Phaser.Scene {
     this.load.aseprite('hero', heroPNG, heroJSON)
     this.load.image('base_tiles', tilesPNG)
     this.load.tilemapTiledJSON('tilemap', tilesJSON)
-
   }
 
   create() {
@@ -46,6 +45,7 @@ export default class Game extends Phaser.Scene {
     const tileset = map.addTilesetImage('arena', 'base_tiles')
     map.createLayer('ground', tileset)
     map.createLayer('walls', tileset)
+    this.anims.createFromAseprite('hero', ['idle'])
     this.hero = new PlayableSprite(this, 100 , 100, 'hero');
     this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.level);
 
@@ -59,25 +59,34 @@ export default class Game extends Phaser.Scene {
       this.giveControlsX(this.hero)
       this.giveControlsY(this.hero)
     }
+
+    if (!this.hero?.moving){
+      this.hero?.play({key: 'idle', repeat: -1, ignoreIfPlaying: true})
+      console.log(this.hero.play('idle'))
+    }
   }
 
   giveControlsX(sprite: PlayableSprite) {
     if (this.input.keyboard.checkDown(this.keys.right) || this.input.keyboard.checkDown(this.keys.D)) {
       if (sprite.body.velocity.x < sprite.attributes.speed * 250) {
+        sprite.moving = true;
         return sprite.body.setAccelerationX(sprite.attributes.speed * 175)
       } else {
+        sprite.moving = true;
         return sprite.body.setVelocityX(sprite.attributes.speed * 250)
       }
     }
 
     if (this.input.keyboard.checkDown(this.keys.left) || this.input.keyboard.checkDown(this.keys.A)) {
       if (sprite.body.velocity.x > sprite.attributes.speed * -250) {
+        sprite.moving = true;
         return sprite.body.setAccelerationX(sprite.attributes.speed * -175)
       } else {
+        sprite.moving = true;
         return sprite.body.setVelocityX(sprite.attributes.speed * -250)
       }
     }
-
+    sprite.moving = false;
     sprite.body.setVelocityX(0)
     sprite.body.setAccelerationX(0)
   }

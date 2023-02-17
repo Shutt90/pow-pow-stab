@@ -11,6 +11,7 @@ export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
     }
     level: Stat = 1
     xp: Stat = 0
+    moving: boolean = false
 
     constructor(scene: Scene, x: number, y: number, texture: string | Textures.Texture, frame?: string) {
         super(scene, x, y, texture, frame)
