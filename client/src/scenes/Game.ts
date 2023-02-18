@@ -52,6 +52,9 @@ export default class Game extends Phaser.Scene {
     this.keys = this.input.keyboard.addKeys('A, W, S, D, left, right, up, down')
 
     this.createTextbox(0, 0, 'hello world')
+    let expectedName: Array<string> = []
+    const inputText = this.acceptText(expectedName);
+    console.log(inputText)
   }
 
   update() {
@@ -61,8 +64,7 @@ export default class Game extends Phaser.Scene {
     }
 
     if (!this.hero?.moving){
-      this.hero?.play({key: 'idle', repeat: -1, ignoreIfPlaying: true})
-      console.log(this.hero.play('idle'))
+      this.hero?.play('idle', true)
     }
   }
 
@@ -114,5 +116,24 @@ export default class Game extends Phaser.Scene {
 
   createTextbox(x: number, y: number, text: string) {
     const txt = new GameText(this, x, y, text, {})
+  }
+
+  acceptText(returnedArray: Array<string>): string {
+    this.input.keyboard.addListener('keydown', textReturned, {once: true})
+
+    function textReturned(e: Event): string | Function {
+      (e: Event) => {
+        console.log('hi')
+        if (e.key.match(/[a-zA-Z]*$/)) {
+          returnedArray.push(e.key)
+        }
+        if (e.key === 'enter') {
+          console.log(returnedArray)
+          return returnedArray.join
+        } else {
+          this.acceptText(returnedArray)
+        }
+      }
+    }
   }
 }
