@@ -59,10 +59,8 @@ export default class Game extends Phaser.Scene {
       this.giveControlsX(this.hero)
       this.giveControlsY(this.hero)
     }
-
     if (!this.hero?.moving){
-      this.hero?.play({key: 'idle', repeat: -1, ignoreIfPlaying: true})
-      console.log(this.hero.play('idle'))
+      this.hero?.play('idle', true)
     }
   }
 
@@ -89,6 +87,10 @@ export default class Game extends Phaser.Scene {
     sprite.moving = false;
     sprite.body.setVelocityX(0)
     sprite.body.setAccelerationX(0)
+
+    if (!this.hero?.moving){
+      this.hero?.play('idle', true)
+    }
   }
 
   giveControlsY(sprite: PlayableSprite) {
