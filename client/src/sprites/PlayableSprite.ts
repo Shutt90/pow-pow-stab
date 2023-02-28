@@ -18,6 +18,7 @@ export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this)
         scene.physics.add.existing(this)
         scene.physics.world.setBoundsCollision()
+        this.setCollideWorldBounds()
     }
 
     //TODO: change any type

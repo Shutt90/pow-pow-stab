@@ -9,7 +9,7 @@ const enemyTypes: Array<enemy> = [
 
 type enemy = string
 
-export default class EnemySprite extends Phaser.GameObjects.Sprite {
+export default class EnemySprite extends Phaser.Physics.Arcade.Sprite {
     attributes: Stats = {
         hp: 25,
         mana: 10,
@@ -23,13 +23,15 @@ export default class EnemySprite extends Phaser.GameObjects.Sprite {
 
     constructor(scene: Scene, x: number, y: number, texture: string, playerLevel: number){
         super(scene, x, y, texture)
+        scene.add.existing(this)
+        scene.physics.add.existing(this)
+        scene.physics.world.setBoundsCollision()
         this.enemyType = enemyTypes[Phaser.Math.Between(0, enemyTypes.length-1)]
         this.statsForEnemyType()
+        this.setCollideWorldBounds()
     }
 
     statsForEnemyType(): void {
-        console.log(this.enemyType)
-
         //TODO: refactor later
         if (this.enemyType === enemyTypes[0]) {
             //flying enemy

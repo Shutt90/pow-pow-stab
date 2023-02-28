@@ -7,9 +7,7 @@ import EnemySprite from '../sprites/EnemySprite';
 import tilesPNG from '../../assets/TX-Tileset-Grass.png'
 import tilesJSON from '../../assets/arenamap.json'
 
-import { TextBox } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 import { GameText } from '../ui/Text';
-
 
 export type Stats = {
   hp: Stat
@@ -39,16 +37,21 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
-    let { width, height } = this.sys.game.canvas;
     this.add.image(0, 0, 'base_tiles')
     const map = this.make.tilemap({key: 'arena'})
     const tileset = map.addTilesetImage('arena', 'base_tiles')
     map.createLayer('ground', tileset)
     map.createLayer('walls', tileset)
     this.anims.createFromAseprite('hero', ['idle'])
-    this.hero = new PlayableSprite(this, 100 , 100, 'hero');
-    this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.level);
+    this.hero = new PlayableSprite(this, 100 , 100, 'hero')
+    this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.level)
 
+
+    this.physics.add.collider(this.hero, this.enemy, () => {
+      this.scene.restart()
+    })
+
+    this.hero.setCollideWorldBounds()
     this.keys = this.input.keyboard.addKeys('A, W, S, D, left, right, up, down')
 
     this.createTextbox(0, 0, 'hello world')
@@ -131,7 +134,6 @@ export default class Game extends Phaser.Scene {
           returnedArray.push(e.key)
         }
         if (e.key === 'enter') {
-          console.log(returnedArray)
           return returnedArray.join
         } else {
           this.acceptText(returnedArray)
