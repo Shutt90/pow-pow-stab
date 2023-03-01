@@ -1,17 +1,24 @@
 import Phaser, { Scene, Textures } from 'phaser'
 import { Stats, Stat } from './scenes/Game';
+import { MAX_LIVES } from '../constants'
+
+type life = boolean;
 
 export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
     attributes: Stats = {
-        hp: 25,
-        mana: 10,
+        maxHp: 25,
+        currentHp: 25,
+        maxMana: 10,
+        currentMana: 10,
         attack: 1,
         defense: 1,
         speed: 1
     }
+    lives: integer = MAX_LIVES
     level: Stat = 1
     xp: Stat = 0
     moving: boolean = false
+    isDead: boolean = false
 
     constructor(scene: Scene, x: number, y: number, texture: string | Textures.Texture, frame?: string) {
         super(scene, x, y, texture, frame)
@@ -30,6 +37,13 @@ export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
     levelUp() {
         this.level++
         this.increaseStats()
+    }
+
+    takeDamage(damage: Stat) {
+        this.attributes.hp - damage;
+        if (this.attributes.currentHp < 1) {
+            this.isDead = true
+        }
     }
 
     increaseStats() {

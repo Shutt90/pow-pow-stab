@@ -48,7 +48,7 @@ export default class Game extends Phaser.Scene {
 
 
     this.physics.add.collider(this.hero, this.enemy, () => {
-      this.scene.restart()
+      this.hero?.takeDamage(this.enemy?.attributes.attack);
     })
 
     this.hero.setCollideWorldBounds()
