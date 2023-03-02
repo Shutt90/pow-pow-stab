@@ -24,14 +24,12 @@ export default class Game extends Phaser.Scene {
   hero: PlayableSprite | undefined;
   enemy: EnemySprite | undefined;
   keys: any
-  canvas: HTMLCanvasElement | undefined;
 
   constructor() {
     super('Game');
   }
 
   preload() {
-    this.canvas = this.sys.game.canvas;
     this.load.aseprite('hero', heroPNG, heroJSON)
     this.load.image('base_tiles', tilesPNG)
     this.load.tilemapTiledJSON('tilemap', tilesJSON)
@@ -47,10 +45,17 @@ export default class Game extends Phaser.Scene {
 
     this.anims.createFromAseprite('hero', ['idle'])
     this.hero = new PlayableSprite(this, 100 , 100, 'hero')
-    this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.level)
-    enemies.addEnemy(this.enemy)
 
-    setTimeout(() => enemies.removeEnemy(this.enemy), 5000);
+    setInterval(() => {
+      const enemy = new EnemySprite(
+        this,
+        Phaser.Math.Between(0, this.sys.game.canvas.width),
+        Phaser.Math.Between(0, this.sys.game.canvas.height),
+        'enemy',
+        this.hero?.level
+      )
+      enemies.addEnemy(enemy)
+    }, 1000)
 
     this.physics.add.collider(this.hero, this.enemy, () => {
       this.hero?.takeDamage(this.enemy?.attributes.attack);
