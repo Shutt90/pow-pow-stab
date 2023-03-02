@@ -8,6 +8,7 @@ import tilesPNG from '../../assets/TX-Tileset-Grass.png'
 import tilesJSON from '../../assets/arenamap.json'
 
 import { GameText } from '../ui/Text';
+import EnemyManager from '../sprites/EnemyManager';
 
 export type Stats = {
   hp: Stat
@@ -42,10 +43,14 @@ export default class Game extends Phaser.Scene {
     const tileset = map.addTilesetImage('arena', 'base_tiles')
     map.createLayer('ground', tileset)
     map.createLayer('walls', tileset)
+    const enemies = new EnemyManager()
+
     this.anims.createFromAseprite('hero', ['idle'])
     this.hero = new PlayableSprite(this, 100 , 100, 'hero')
     this.enemy = new EnemySprite(this, 0, 0, 'enemy', this.hero.level)
+    enemies.addEnemy(this.enemy)
 
+    setTimeout(() => enemies.removeEnemy(this.enemy), 5000);
 
     this.physics.add.collider(this.hero, this.enemy, () => {
       this.hero?.takeDamage(this.enemy?.attributes.attack);
