@@ -78,6 +78,11 @@ export default class Game extends Phaser.Scene {
     if (!this.hero?.moving){
       this.hero?.play('idle', true)
     }
+
+    if (this.input.keyboard.checkDown(this.keys.space)) {
+      const dmg = this.hero.attack()
+
+    }
   }
 
   giveControlsX(sprite: PlayableSprite) {

@@ -62,9 +62,9 @@ export default class PlayableSprite extends Phaser.Physics.Arcade.Sprite {
             }
         }
     }
-
-    addTextbox(text: string): void {
-
+    
+    attack(): Stat {
+        // play animation, while animation is playing do damage, otherwise take damage on collision
+        return this.attributes.attack
     }
 }
-
